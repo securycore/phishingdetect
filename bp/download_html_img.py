@@ -5,10 +5,7 @@ __atuthor__ = "ketian"
 __time__ = "fall2017"
 
 
-import re
 import os
-import requests
-from bs4 import BeautifulSoup
 import codecs
 
 from selenium import webdriver
@@ -16,6 +13,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 
 import tldextract
+
+import datetime
+
 
 from sys import platform
 
@@ -69,33 +69,42 @@ class ChromeConsoleLogging(object):
 
         self.driver = webdriver.Chrome(executable_path=path_to_chrome_driver, desired_capabilities=desired,
                                        chrome_options=chrome_options)
-        self.driver.set_page_load_timeout(15)
 
 
     def quitDriver(self, ):
         self.driver.quit()
 
-    def get_screenshot(self,site,screenshot=None):
+    def get_screenshot_html(self, site, out_dir='./result/', screenshot=None):
+        #self.driver.maximize_window()
+        #self.driver.get(site)
+
         try:
+            self.driver.set_page_load_timeout(15)
             self.driver.maximize_window()
             self.driver.get(site)
 
-        except Exception:
+            cur_time = datetime.datetime.now().strftime("%I_%M%p_on_%B_%d_%Y")
 
-            print ("PAGE LOAD Time out")
+            if screenshot is None:
+                ex = tldextract.extract(site)
+                screenshot = out_dir + ex.domain + '.' + ex.suffix + '-' + cur_time
+
+            content = self.driver.page_source
+
+            write_page_into_html(screenshot, content)
+            self.driver.save_screenshot(screenshot + '.png')
+
+            print ("Save HTML and Screenshot for "+ site)
+            self.quitDriver()
+
+        except Exception:
+            print ("Exception happens")
+            #self.driver.execute_script("window.stop()")
             self.quitDriver()
             self.setUp()
             return None
 
-        if screenshot is None:
-            ex = tldextract.extract(site)
-            screenshot = ex.domain+'.'+ex.suffix
 
-        content = self.driver.page_source
-
-        write_page_into_html(screenshot, content)
-        self.driver.save_screenshot(screenshot+'.png')
-        self.driver.close()
 
 
 
@@ -106,29 +115,23 @@ def write_page_into_html(filename,text):
         f.close()
 
 
-def get_html_page_and_imgs(site):
-    response = requests.get(site)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    img_tags = soup.find_all('img')
+def read_files(fname):
+    with open(fname) as f:
+        content = f.readlines()
+    # you may also want to remove whitespace characters like `\n` at the end of each line
+    content = [x.strip() for x in content]
+    return content
+#
+#site = 'http://sewauk.org/wp-content/upgrade/025485121information/LOGS/448621c7f53fc6f147b47e5468eb1dbc/'
+#site = 'http://apps-online-paypal.com./'
 
-    urls = [img['src'] for img in img_tags]
-
-
-    for url in urls:
-        filename = re.search(r'/([\w_-]+[.](jpg|gif|png))$', url)
-        with open(filename.group(1), 'wb') as f:
-            if 'http' not in url:
-                # sometimes an image source can be relative
-                # if it is provide the base url which also happens
-                # to be the site variable atm.
-                url = '{}{}'.format(site, url)
-                response = requests.get(url)
-                f.write(response.content)
-
-
-
-site = 'http://sewauk.org/wp-content/upgrade/025485121information/LOGS/448621c7f53fc6f147b47e5468eb1dbc/'
 if __name__ == "__main__":
+
+    fname = './test/URL.txt'
+    sites = read_files(fname)
     chrome = ChromeConsoleLogging()
+
     chrome.setUp()
-    chrome.get_screenshot(site)
+    for site in sites:
+        chrome.get_screenshot_html(site)
+
