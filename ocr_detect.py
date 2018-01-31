@@ -20,6 +20,7 @@ from nltk.corpus import stopwords
 
 from nltk import tag
 
+import re
 import collections
 pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'
 LOGGING = False
@@ -78,11 +79,13 @@ def get_html_text(url):
         f.close()
         return (None)
 
+    heads = soup.find_all(re.compile(r'h\d+'))
     things = '.'.join(p.text for p in soup.find_all('p'))
     tags = '.'.join(a.text for a in soup.find_all('a'))
     titles =  '.'.join(t.text for t in soup.find_all('title'))
 
     raw = things + ' ' + tags + ' ' + titles
+
 
     sent = word_tokenize(raw) #tokenize html
     tokens = tag.pos_tag(sent)
