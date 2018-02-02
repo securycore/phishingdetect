@@ -5,7 +5,11 @@
 __author__ = "ririhedou@gmail.com"
 
 
+
 class Candidate(object):
+    """
+    Candidates are for the image and html source files
+    """
     def __init__(self, idx, web_img, web_source, mobile_img, mobile_source):
         self.idx = idx
         self.web_img = web_img
@@ -16,6 +20,10 @@ class Candidate(object):
 
 
 class Feature(object):
+    """
+    Feature is used for 
+    """
+
     def __init__(self):
         self.nlp_text = list()
         self.img_text = list()
