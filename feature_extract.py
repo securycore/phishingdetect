@@ -13,14 +13,13 @@ import pytesseract
 
 from bs4 import BeautifulSoup
 
-#import nltk
+# import nltk - a library for NLP analysis
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk import tag
-
 from autocorrect import spell
-
 import re
+import os
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 # Include the above line, if you don't have tesseract executable in your PATH
 # Example tesseract_cmd: 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract'
@@ -126,13 +125,46 @@ WORD_TERM =[u'hidden', u'password', u'email', u'text', u'account', u'found', u'w
             u'inconvenience', u'questions', u'verification', u'private', u'logging', u'possible',
             u'trouble', u'require', u'pages', u'websites', u'tel', u'usually', u'enter', u'sale', u'permanently', u'box']
 
-def text_embedding(text_str):
+
+def text_embedding_into_vector(txt_str):
     """
     :param text_str:
     :return:
     We split text into a list of features for training
     """
-    pass
+    texts = txt_str.split(' ')
+    texts = [spell(w).lower() for w in texts]
+
+    embedding_vector = [0]*(len(WORD_TERM)+1)
+    for elem in texts:
+        # if it exist, we set the index plus one
+        # else the last position plus one
+        index = WORD_TERM.index(elem) if elem in WORD_TERM else -1
+        embedding_vector[index] += 1
+
+    return embedding_vector
+
+
+def feature_vector_extraction(c):
+    """
+    :param c: a candidate object
+    :return: the feature vector
+    it consists of three components: img-text, html-text, form-text
+    """
+    if os.path.exists(c.web_source) and os.path.exists(c.web_img):
+        try:
+            print (c.idx)
+            img_text = get_img_text_ocr(c.web_img)
+            text_word_str, num_of_forms, attr_word_str = get_structure_html_text(c.web_source)
+            img_v = text_embedding_into_vector(img_text)
+            txt_v = text_embedding_into_vector(text_word_str)
+            form_v = text_embedding_into_vector(attr_word_str)
+            final_v = img_v + txt_v + form_v + [num_of_forms]
+            return final_v
+
+        except:
+
+            return None
 
 if __name__ == "__main__":
     img = "/mnt/sdb1/browser_phishingTank/Crawl/1/5457958.mobile.screen.png"

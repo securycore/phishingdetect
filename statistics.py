@@ -4,6 +4,7 @@
 import collections
 from autocorrect import spell
 
+
 def text_analysis(txt_str):
     texts = txt_str.split(' ')
     texts = [spell(w).lower() for w in texts]
@@ -16,7 +17,7 @@ def text_analysis(txt_str):
     print ("fk", ws)
 
 """
-# Abandoned - 
+# Abandoned
 email is not an english word        
 from nltk.corpus import words
 WORD_LIST = set(words.words())
@@ -29,5 +30,5 @@ def text_is_english_word(word):
 """
 
 if __name__ == "__main__":
-    text_analysis(img_string+" "+html_string + " " +img_string2 + " " + html_string2)
+    pass
 
