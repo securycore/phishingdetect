@@ -35,6 +35,8 @@ def main():
 
         if os.path.exists(c.web_source) and os.path.exists(c.web_img):
             v = feature_extract.feature_vector_extraction(c)
+            if v is None:
+                continue
             X.append(v)
             if labels[c.idx] == 'y':
                 y.append(1)

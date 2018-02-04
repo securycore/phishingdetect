@@ -60,3 +60,10 @@ False positive: 0.055556
 False negative: 0.111111
 Area under the ROC curve : 0.877344
 ```
+
+## Problem shotting
+
+- export python
+```
+export PYTHONPATH="${PYTHONPATH}/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages"
+```

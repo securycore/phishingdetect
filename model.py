@@ -7,7 +7,6 @@ import numpy as np
 
 from sklearn.model_selection import *
 
-
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 
@@ -140,7 +139,37 @@ def train_and_draw_roc(X_original, y):
     del y
 
 
+def tree_model_based_feature_importance(X,y):
+    X = np.asarray(X)
+    #random forest
+    forest = RandomForestClassifier(bootstrap=True, criterion='gini', max_depth=None, max_features='auto', class_weight='balanced',
+                                     min_samples_leaf=1, min_samples_split=2, n_estimators=50, n_jobs=1, oob_score=False, random_state=3)
+
+    get_scroe_using_cv(forest, X, y)
+    forest.fit(X, y)
+
+    importances = forest.feature_importances_
+    std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+                 axis=0)
+    indices = np.argsort(importances)[::-1]
+
+    # Print the feature ranking
+    print("Feature ranking:")
+
+    for f in range(X.shape[1]):
+        print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+
+    # Plot the feature importances of the forest
+    plt.figure()
+    plt.title("Feature importances")
+    plt.bar(range(X.shape[1]), importances[indices],
+            color="r", yerr=std[indices], align="center")
+    plt.xticks(range(X.shape[1]), indices)
+    plt.xlim([-1, X.shape[1]])
+    plt.show()
+
 if __name__ =="__main__":
     import TEST
     X, Y = TEST.X, TEST.Y
-    train_and_draw_roc(X, Y)
+    #train_and_draw_roc(X, Y)
+    tree_model_based_feature_importance(X,Y)
