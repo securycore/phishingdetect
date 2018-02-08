@@ -167,9 +167,24 @@ def feature_vector_extraction(c):
             return None
 
 if __name__ == "__main__":
-    img = "/mnt/sdb1/browser_phishingTank/Crawl/1/5457958.mobile.screen.png"
-    wells_fargo_img = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.screen.png"
-    wells_fargo_html = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.source.html"
-    print (get_structure_html_text(wells_fargo_html))
-    print (get_img_text_ocr(wells_fargo_img))
+    #img = "/mnt/sdb1/browser_phishingTank/Crawl/1/5457958.mobile.screen.png"
+    #wells_fargo_img = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.screen.png"
+    #wells_fargo_html = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.source.html"
+    #print (get_structure_html_text(wells_fargo_html))
+    #print (get_img_text_ocr(wells_fargo_img))
+    n = len(WORD_TERM) + 1
+    for i in range(3*n+1):
+        t = i/n
+        if t == 0:
+            s = "img"
+        elif t == 1:
+            s = "txt"
+        else:
+            s = "form"
+        r = i%n
+        if r == n-1:
+            s += " other"
+        else:
+            s += " " + WORD_TERM[r]
 
+        print (i, s)

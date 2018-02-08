@@ -63,14 +63,12 @@ False positive: 0.034783
 False negative: 0.106087
 Area under the ROC curve : 0.936228
 
+```
 
-LogisticRegression(C=100000.0, class_weight=None, dual=False,
-          fit_intercept=True, intercept_scaling=1, max_iter=100,
-          multi_class='ovr', n_jobs=1, penalty='l2', random_state=None,
-          solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
-Accuracy score 0.893913043478
-False positive: 0.038261
-False negative: 0.067826
-Area under the ROC curve : 0.947001
+## Problem shooting
 
+- export python when import does not work
+```
+export PYTHONPATH="${PYTHONPATH}/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages"
+>>>>>>> 22449ef7a83f97d4f37d2561241e0d7fdbd6ddc9
 ```
