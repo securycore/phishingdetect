@@ -14,7 +14,10 @@ def load_label(filename):
             if len(line) < 1 or line.startswith("#"):
                 continue
             x_label = line.split(",")[0]
-            y_label = line.split(",")[1]
+            y_label = line.split(",")[-1]
+            if len(y_label) <1:
+                print (x_label)
+                raw_input()
             labels[x_label] = y_label
     X = []
     Y = []
@@ -23,6 +26,10 @@ def load_label(filename):
         Y.append(labels[ele])
 
     print ("LOAD total {} labels".format(len(labels)))
+    print ("LOAD total y {} labels".format(sum(1 for i in labels if labels[i] == 'y')))
+    print ("LOAD total n {} labels".format(sum(1 for i in labels if labels[i] == 'n')))
     return labels
 
 
+
+#print load_label(l)

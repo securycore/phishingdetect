@@ -5,7 +5,6 @@ __author__ = "ririhedou@gmail.com"
 
 import os
 
-
 # Support classes
 class Candidate(object):
     """
@@ -21,7 +20,7 @@ class Candidate(object):
 
 class Feature(object):
     """
-    Feature is used for 
+    Feature is used for extract feature vector
     """
 
     def __init__(self):

@@ -7,7 +7,6 @@ import numpy as np
 
 from sklearn.model_selection import *
 
-
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 
@@ -41,10 +40,11 @@ def get_fpr_tpr(clt, x, y):
 
     print ("\n")
     print (clt)
-    random_state = np.random.RandomState(0)
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=0)
 
-    clt = clt.fit(X_train,y_train)
+    random_state = np.random.RandomState(0)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=random_state)
+
+    clt = clt.fit(X_train, y_train)
     y_pred = clt.predict(X_test)
 
     #accuracy score
@@ -97,9 +97,9 @@ def train_and_draw_roc(X_original, y):
     logit = linear_model.LogisticRegression(C=1e5)
 
     X = np.asarray(X_original)
-    print (X.shape)
+    print ("Train shape {}".format(X.shape))
+    print ("1-label: {}".format(sum(1 for i in Y if i==1)))
 
-    """
     print ("KNN")
     get_scroe_using_cv(knn, X, y)
     print ("DT")
@@ -110,7 +110,7 @@ def train_and_draw_roc(X_original, y):
     get_scroe_using_cv(svmrbf, X, y)
     print ("Logit")
     get_scroe_using_cv(logit, X, y)
-    """
+
 
     fpr_knn, tpr_knn, auc_knn = get_fpr_tpr(knn, X, y)
     fpr_dtree, tpr_dtree, auc_dtree = get_fpr_tpr(dtree, X, y)
@@ -124,7 +124,6 @@ def train_and_draw_roc(X_original, y):
     plt.plot(fpr_dtree, tpr_dtree, 'b>--', label ='D.Tree AUC=%0.4f'% auc_dtree)
     plt.plot(fpr_rforest, tpr_rforest, 'go--', label ='R.Forest AUC=%0.4f'% auc_rforest)
     plt.plot(fpr_log, tpr_log, '^--', label='Logit AUC=%0.4f' % auc_log)
-
 
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlim([-0.02, 1.02])
@@ -141,6 +140,6 @@ def train_and_draw_roc(X_original, y):
 
 
 if __name__ =="__main__":
-    import TEST
-    X, Y = TEST.X, TEST.Y
+    X = np.loadtxt("X.txt")
+    Y = np.loadtxt("Y.txt")
     train_and_draw_roc(X, Y)

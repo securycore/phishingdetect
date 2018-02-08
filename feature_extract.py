@@ -59,7 +59,7 @@ def get_structure_html_text(html_path):
         f = open('log-error.log', 'a')
         f.write("SoupParse Exception: " + str(type(inst)) + " " + str(html_path) + '\n')
         f.close()
-        return (None,None,None)
+        return None, None, None
 
     heads = '.'.join(t.text for t in soup.find_all(re.compile(r'h\d+')))
     things = '.'.join(p.text for p in soup.find_all('p'))
@@ -67,9 +67,10 @@ def get_structure_html_text(html_path):
     titles = '.'.join(t.text for t in soup.find_all('title'))
 
     raw = heads + ' ' + things + ' ' + tags + ' ' + titles
-    sent = word_tokenize(raw) #tokenize html
-    tokens = tag.pos_tag(sent)
+    sent = word_tokenize(raw)
+    #tokenize html
 
+    tokens = tag.pos_tag(sent)
     #_map = {i.lower():j for i,j in tokens}
     #remove no-alpha words
 
@@ -153,7 +154,6 @@ def feature_vector_extraction(c):
     """
     if os.path.exists(c.web_source) and os.path.exists(c.web_img):
         try:
-            print (c.idx)
             img_text = get_img_text_ocr(c.web_img)
             text_word_str, num_of_forms, attr_word_str = get_structure_html_text(c.web_source)
             img_v = text_embedding_into_vector(img_text)
