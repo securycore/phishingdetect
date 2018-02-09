@@ -93,7 +93,6 @@ def train_and_draw_roc(X_original, y):
                     max_iter=-1, probability=True, random_state=None,
                     shrinking=True, tol=0.001, verbose=False)
 
-
     logit = linear_model.LogisticRegression(C=1e5)
 
     X = np.asarray(X_original)
@@ -110,7 +109,6 @@ def train_and_draw_roc(X_original, y):
     get_scroe_using_cv(svmrbf, X, y)
     print ("Logit")
     get_scroe_using_cv(logit, X, y)
-
 
     fpr_knn, tpr_knn, auc_knn = get_fpr_tpr(knn, X, y)
     fpr_dtree, tpr_dtree, auc_dtree = get_fpr_tpr(dtree, X, y)
@@ -139,14 +137,19 @@ def train_and_draw_roc(X_original, y):
     del y
 
 
-def tree_model_based_feature_importance(X,y):
-    X = np.asarray(X)
-    #random forest
-    forest = RandomForestClassifier(bootstrap=True, criterion='gini', max_depth=None, max_features='auto', class_weight='balanced',
-                                     min_samples_leaf=1, min_samples_split=2, n_estimators=50, n_jobs=1, oob_score=False, random_state=3)
+def tree_model_based_feature_importance(x, y, forest=None):
+    x = np.asarray(x)
 
-    get_scroe_using_cv(forest, X, y)
-    forest.fit(X, y)
+    #random forest
+    if forest is None:
+        # random forest
+        forest = RandomForestClassifier(bootstrap=True, criterion='gini', max_depth=None, max_features='auto',
+                                         class_weight='balanced',
+                                         min_samples_leaf=1, min_samples_split=2, n_estimators=50, n_jobs=1,
+                                         oob_score=False, random_state=3)
+
+    get_scroe_using_cv(forest, x, y)
+    forest.fit(x, y)
 
     importances = forest.feature_importances_
     std = np.std([tree.feature_importances_ for tree in forest.estimators_],
@@ -156,20 +159,21 @@ def tree_model_based_feature_importance(X,y):
     # Print the feature ranking
     print("Feature ranking:")
 
-    for f in range(X.shape[1]):
+    for f in range(x.shape[1]):
         print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
 
     # Plot the feature importances of the forest
     plt.figure()
     plt.title("Feature importances")
-    plt.bar(range(X.shape[1]), importances[indices],
+    plt.bar(range(x.shape[1]), importances[indices],
             color="r", yerr=std[indices], align="center")
-    plt.xticks(range(X.shape[1]), indices)
-    plt.xlim([-1, X.shape[1]])
+    plt.xticks(range(x.shape[1]), indices)
+    plt.xlim([-1, x.shape[1]])
     plt.show()
 
 
 if __name__ =="__main__":
-    X = np.loadtxt("X.txt")
-    Y = np.loadtxt("Y.txt")
-    train_and_draw_roc(X, Y)
+    X = np.loadtxt("./data/X.txt")
+    Y = np.loadtxt("./data/Y.txt")
+    tree_model_based_feature_importance(X,Y)
+    #train_and_draw_roc(X, Y)
