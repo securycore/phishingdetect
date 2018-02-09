@@ -7,13 +7,14 @@ A simple machine learning model to identify phishing pages by looking at:
 * IMAGE text
 
 
-## model
+## Model
 ```
-(1641, 526)
+Train shape (1641, 526)
+1-label: 643
 KNN
 Accuracy: 0.81 (+/- 0.15)
 DT
-Accuracy: 0.89 (+/- 0.13)
+Accuracy: 0.88 (+/- 0.13)
 RF
 Accuracy: 0.92 (+/- 0.06)
 SVM
@@ -46,12 +47,12 @@ RandomForestClassifier(bootstrap=True, class_weight='balanced',
             criterion='gini', max_depth=None, max_features='auto',
             max_leaf_nodes=None, min_impurity_split=1e-07,
             min_samples_leaf=1, min_samples_split=2,
-            min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+            min_weight_fraction_leaf=0.0, n_estimators=50, n_jobs=1,
             oob_score=False, random_state=3, verbose=0, warm_start=False)
-Accuracy score 0.930434782609
-False positive: 0.029565
-False negative: 0.040000
-Area under the ROC curve : 0.983104
+Accuracy score 0.926956521739
+False positive: 0.034783
+False negative: 0.038261
+Area under the ROC curve : 0.982916
 
 
 SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
@@ -61,7 +62,17 @@ SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
 Accuracy score 0.859130434783
 False positive: 0.034783
 False negative: 0.106087
-Area under the ROC curve : 0.936228
+Area under the ROC curve : 0.936241
+
+
+LogisticRegression(C=100000.0, class_weight=None, dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=100,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=None,
+          solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
+Accuracy score 0.893913043478
+False positive: 0.038261
+False negative: 0.067826
+Area under the ROC curve : 0.947001
 
 ```
 
@@ -72,3 +83,8 @@ Area under the ROC curve : 0.936228
 export PYTHONPATH="${PYTHONPATH}/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages"
 >>>>>>> 22449ef7a83f97d4f37d2561241e0d7fdbd6ddc9
 ```
+
+## Disclaimer
+
+research prototype 
+

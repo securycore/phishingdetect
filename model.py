@@ -151,6 +151,8 @@ def tree_model_based_feature_importance(x, y, forest=None):
     get_scroe_using_cv(forest, x, y)
     forest.fit(x, y)
 
+    return forest
+
     importances = forest.feature_importances_
     std = np.std([tree.feature_importances_ for tree in forest.estimators_],
                  axis=0)
@@ -171,9 +173,11 @@ def tree_model_based_feature_importance(x, y, forest=None):
     plt.xlim([-1, x.shape[1]])
     plt.show()
 
+    return forest
+
 
 if __name__ =="__main__":
     X = np.loadtxt("./data/X.txt")
     Y = np.loadtxt("./data/Y.txt")
-    tree_model_based_feature_importance(X,Y)
-    #train_and_draw_roc(X, Y)
+    #tree_model_based_feature_importance(X,Y)
+    train_and_draw_roc(X, Y)

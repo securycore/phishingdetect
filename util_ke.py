@@ -18,6 +18,16 @@ class Candidate(object):
         self.mobile_source = mobile_source
 
 
+class CrawlCandidate(object):
+    """
+    Candidates are for the image and html source file in crawling
+    """
+    def __init__(self, idx, img, source):
+        self.idx = idx
+        self.web_img = img
+        self.web_source = source
+
+
 class Feature(object):
     """
     Feature is used for extract feature vector
@@ -68,3 +78,37 @@ def read_pngs_sources_from_multiple_directories(dire_list):
         can = read_pngs_sources_from_directory(i)
         cans.extend(can)
     return cans
+
+
+def read_candidates_from_crawl_data(dire):
+    #/mnt/sdb1/browser_data/facebook_com-247/screenshots/1-8463e63ea97f53b289ad0cc172211729-247_0[k][January_17_2018].screen.png
+    #/mnt/sdb1/browser_data/facebook_com-247/sources/1-8463e63ea97f53b289ad0cc172211729-247_0[k][January_17_2018].source.html
+    if not dire.endswith('/'):
+        dire += '/'
+
+    screen_dir = dire + "screenshots/"
+    sources_dir = dire + "sources/"
+
+    def get_label_dic(d):
+        fs = os.listdir(d)
+        dic = dict()
+        for f in fs:
+            idx = f.split('[k]')[0].split('-')[-1]
+            dic[idx] = d + f
+        return dic
+
+    screen_dict = get_label_dic(screen_dir)
+    sources_dict = get_label_dic(sources_dir)
+
+    crawl_candidate_list = list()
+
+    for i in screen_dict:
+        try:
+            img = screen_dict[i]
+            source = sources_dict[i]
+            crawl_candidate_list.append(CrawlCandidate(i, img, source))
+        except:
+            print (i)
+            print ("same idx does not exist in both screenshot and source directory")
+
+    return crawl_candidate_list

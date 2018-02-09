@@ -25,8 +25,7 @@ def main():
     cans = util_ke.read_pngs_sources_from_multiple_directories(dires)
 
     print (len(cans))
-    all_img_text = ""
-    all_html_text = ""
+
     labels = load_data.load_label("label_tool/LABEL.label")
 
     X = list()
