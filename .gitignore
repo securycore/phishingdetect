@@ -8,6 +8,7 @@
 **/*.res
 **/*.avro
 **/*.txt
+**/*.png
 
 #Analysis result
 **/*.out

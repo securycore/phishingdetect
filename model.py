@@ -47,6 +47,7 @@ def get_fpr_tpr(clt, x, y):
     clt = clt.fit(X_train, y_train)
     y_pred = clt.predict(X_test)
 
+
     #accuracy score
     _accuracy_score = accuracy_score(y_test, y_pred)
     print ("Accuracy score {}".format(_accuracy_score))
@@ -72,6 +73,32 @@ def get_fpr_tpr(clt, x, y):
     roc_auc = auc(fpr, tpr)
     print ("Area under the ROC curve : %f" % roc_auc)
     return fpr, tpr, roc_auc
+
+
+def draw_confuse_matrix(x, y, clt=None):
+    if clt is None:
+        clt = RandomForestClassifier(bootstrap=True, criterion='gini', max_depth=None, max_features='auto',
+                                         class_weight='balanced',
+                                         min_samples_leaf=1, min_samples_split=2, n_estimators=50, n_jobs=1,
+                                         oob_score=False, random_state=3)
+    print (clt)
+
+    random_state = np.random.RandomState(0)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=random_state)
+
+    clt = clt.fit(X_train, y_train)
+    y_pred = clt.predict(X_test)
+    cm = confusion_matrix(y_test, y_pred)
+
+    print(cm)
+
+    # Show confusion matrix in a separate window
+    plt.matshow(cm)
+    plt.title('Confusion matrix')
+    plt.colorbar()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.show()
 
 
 def train_and_draw_roc(X_original, y):
@@ -180,4 +207,5 @@ if __name__ =="__main__":
     X = np.loadtxt("./data/X.txt")
     Y = np.loadtxt("./data/Y.txt")
     #tree_model_based_feature_importance(X,Y)
-    train_and_draw_roc(X, Y)
+    #train_and_draw_roc(X, Y)
+    draw_confuse_matrix(X,Y)
