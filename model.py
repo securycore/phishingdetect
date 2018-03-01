@@ -178,6 +178,9 @@ def tree_model_based_feature_importance(x, y, forest=None):
     get_scroe_using_cv(forest, x, y)
     forest.fit(x, y)
 
+    #from sklearn.externals import joblib
+    #joblib.dump(forest, 'saved_models/forest.pkl')
+
     return forest
 
     importances = forest.feature_importances_
@@ -206,6 +209,6 @@ def tree_model_based_feature_importance(x, y, forest=None):
 if __name__ =="__main__":
     X = np.loadtxt("./data/X.txt")
     Y = np.loadtxt("./data/Y.txt")
-    #tree_model_based_feature_importance(X,Y)
+    tree_model_based_feature_importance(X,Y)
     #train_and_draw_roc(X, Y)
-    draw_confuse_matrix(X,Y)
+    #draw_confuse_matrix(X,Y)

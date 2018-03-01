@@ -13,10 +13,26 @@ bash install.sh
 
 ## Run the model
 
+```
+python predict_crawl.py -h
+usage: predict_crawl.py [-h] [-t HTML] [-i IMG]
+
+running analysis...
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -t HTML, --html HTML  A html source data to extract features
+  -i IMG, --img IMG     A image data to extract features
+
+```
+
+### Demo
+
 Malicious sample:
 ```
 python predict_crawl.py --img=test/sewauk.org.png --html=test/sewauk.org
 
+Use existing model
 Img is test/sewauk.org.png
 HTML is test/sewauk.org
 1-malicious 0-benign
@@ -27,12 +43,12 @@ Benign sample:
 ```
 python predict_crawl.py --img=test/100022538-facebook.com.png --html=test/100022538-facebook.source.txt
 
-Img is test/100022538-facebook.com.png
-HTML is test/100022538-facebook.source.txt
+Use existing model
+Img is test/sewauk.org.png
+HTML is test/sewauk.org
 1-malicious 0-benign
-Prediction is that [0.]
+Prediction is that [1.]
 ```
-
 
 ## Model Evaluation
 ```
@@ -79,7 +95,6 @@ False negative: 0.067826
 Area under the ROC curve : 0.947001
 
 ```
-
 
 
 ## FAQ

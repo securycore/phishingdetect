@@ -49,13 +49,25 @@ def predict_folder():
 
 
 def predict(img, html):
-    X = np.loadtxt("./data/X.txt")
-    Y = np.loadtxt("./data/Y.txt")
 
-    forest = model.tree_model_based_feature_importance(X, Y)
+    forest = None
+
+    try:
+        from sklearn.externals import joblib
+        forest = joblib.load('saved_models/forest.pkl')
+        print ("Use existing model")
+
+    except:
+        print ("No existing model? create a new one")
+        X = np.loadtxt("./data/X.txt")
+        Y = np.loadtxt("./data/Y.txt")
+        forest = model.tree_model_based_feature_importance(X, Y)
+
     v = feature_extract.feature_vector_extraction_from_img_html(img, html)
+
     if v is None:
         return
+
     p = forest.predict(np.asarray(v).reshape(1, -1))
 
     print ("1-malicious 0-benign")
