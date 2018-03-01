@@ -9,6 +9,7 @@ try:
     import Image
 except ImportError:
     from PIL import Image
+
 import pytesseract
 
 from bs4 import BeautifulSoup
@@ -167,8 +168,34 @@ def feature_vector_extraction(c):
 
             return None
 
-if __name__ == "__main__":
 
+def feature_vector_extraction_from_img_html(img, html):
+    """
+    :param c: a candidate object
+    :return: the feature vector
+    it consists of three components: img-text, html-text, form-text
+    """
+    if os.path.exists(img) and os.path.exists(html):
+        print ("Img is {}".format(img))
+        print ("HTML is {}".format(html))
+        try:
+            img_text = get_img_text_ocr(img)
+            text_word_str, num_of_forms, attr_word_str = get_structure_html_text(html)
+            img_v = text_embedding_into_vector(img_text)
+            txt_v = text_embedding_into_vector(text_word_str)
+            form_v = text_embedding_into_vector(attr_word_str)
+            final_v = img_v + txt_v + form_v + [num_of_forms]
+            return final_v
+
+        except:
+            print ("WTF, error happened! maybe your format is not acceptable?")
+            return None
+    else:
+        print ("Not exist path")
+        return None
+
+
+if __name__ == "__main__":
     #img = "/mnt/sdb1/browser_phishingTank/Crawl/1/5457958.mobile.screen.png"
     #wells_fargo_img = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.screen.png"
     #wells_fargo_html = "/mnt/sdb1/browser_phishingTank/Crawl/7/5450291.mobile.source.html"

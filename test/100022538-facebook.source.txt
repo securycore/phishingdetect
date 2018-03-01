@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head>
+  <title>Account disabled by server administrator</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style>
+    body {
+      font-weight: normal;
+      font-size: 11px;
+      font-family: Arial;
+    }
+    .fatal-error {
+      width: 270px;
+      height: 270px;
+      margin: 0 auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -135px;
+      margin-top: -135px;
+    }
+    .fatal-error-round {
+      width: 270px;
+      height: 270px;
+      background: #FF8356;
+      border-radius: 270px;
+    }
+    .fatal-error-inner {
+      padding-top: 23px;
+      text-align: center;
+    }
+    .fatal-error-sign {
+      margin-bottom: 10px;
+    }
+    .fatal-error-sign-top {
+      background: #FFF;
+      width: 14px;
+      height: 7px;
+      border-radius: 28px 28px 0 0;
+      margin: 0 auto;
+    }
+    .fatal-error-sign-body {
+      content: "";
+      width: 0px;
+      height: 0px;
+      border-style: solid outset;
+      border-width: 54px 7px 0 7px;
+      border-color: #FFF rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+      margin: 0 auto;
+    }
+    .fatal-error-sign-empty {
+      background: #FF8356;
+      margin: 0 auto;
+      width: 10px;
+      height: 11px;
+      z-index: 1;
+      margin-top: -7px;
+    }
+    .fatal-error-sign-dot {
+      background: #FFF;
+      width: 14px;
+      height: 14px;
+      border-radius: 14px;
+      margin: 0 auto;
+      margin-top: 0px;
+    }
+    .fatal-error-message {
+      font-size: 12px;
+      overflow: hidden;
+      padding: 0 10px;
+      color: #fff;
+    }
+    .fatal-error-header {
+      font-size: 27px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .b-copyright {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .b-copyright__link {
+      color: #587b9d;
+    }
+    .b-text_lang_ru {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div id="main-wrapper">
+  <div id="fatal-error" class="fatal-error">
+    <div class="fatal-error-round">
+      <div class="fatal-error-inner">
+        <div class="fatal-error-sign">
+          <div class="fatal-error-sign-top"></div>
+          <div class="fatal-error-sign-body"></div>
+          <div class="fatal-error-sign-empty"></div>
+          <div class="fatal-error-sign-dot"></div>
+        </div>
+        <div class="fatal-error-message">
+          <div class="fatal-error-header b-text b-text_lang_en">Attention</div>
+          <div class="fatal-error-header b-text b-text_lang_ru">Внимание</div>
+          <div class="fatal-error-desc b-text b-text_lang_en">Account disabled by server administrator.</div>
+          <div class="fatal-error-desc b-text b-text_lang_ru">Аккаунт отключен администратором сервера.</div>
+        </div>
+      </div>
+    </div>
+    <div class="b-copyright">
+      <a class="b-copyright__link" href="http://ispsystem.com/external/ispmanager.html" target="_blank">ISPsystem © 1997-<script type="text/javascript">document.write(new Date().getFullYear())</script>2018</a>
+    </div>
+  </div>
+
+</div>
+<script type="text/javascript">
+  var platformLanguage = navigator && (
+    navigator.language ||
+      navigator.browserLanguage ||
+      navigator.systemLanguage ||
+      navigator.userLanguage ||
+      null ),
+    elemsRU, elemsEN;
+  if (platformLanguage.match("ru") && document.getElementsByClassName) {
+    elemsRU = document.getElementsByClassName("b-text_lang_ru");
+    elemsEN = document.getElementsByClassName("b-text_lang_en");
+    var l = elemsEN.length;
+    while(l--) {
+      elemsEN[l].style.display = "none";
+    }
+    l = elemsRU.length;
+    while(l--) {
+      elemsRU[l].style.display = "block";
+    }
+    document.title = "Аккаунт отключен администратором сервера.";
+  }
+</script>
+
+
+
+</body></html>

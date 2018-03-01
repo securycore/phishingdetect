@@ -6,7 +6,32 @@ A simple machine learning model to identify phishing pages by looking at:
 * HTML structure
 * IMAGE text
 
-## Install
+## Install OCR, NLTK and ML dependences
+```
+bash install.sh
+```
+
+## Run the model
+
+Malicious sample:
+```
+python predict_crawl.py --img=test/sewauk.org.png --html=test/sewauk.org
+
+Img is test/sewauk.org.png
+HTML is test/sewauk.org
+1-malicious 0-benign
+Prediction is that [1.]
+```
+
+Benign sample:
+```
+python predict_crawl.py --img=test/100022538-facebook.com.png --html=test/100022538-facebook.source.txt
+
+Img is test/100022538-facebook.com.png
+HTML is test/100022538-facebook.source.txt
+1-malicious 0-benign
+Prediction is that [0.]
+```
 
 
 ## Model Evaluation
@@ -54,6 +79,8 @@ False negative: 0.067826
 Area under the ROC curve : 0.947001
 
 ```
+
+
 
 ## FAQ
 
