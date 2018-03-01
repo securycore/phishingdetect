@@ -9,6 +9,7 @@ import feature_extract
 
 #/mnt/sdb1/browser_data/facebook_com-247/screenshots
 
+
 def predict():
     X = np.loadtxt("./data/X.txt")
     Y = np.loadtxt("./data/Y.txt")
