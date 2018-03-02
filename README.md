@@ -54,16 +54,11 @@ Prediction is that [0.]
 ```
 Train shape (1641, 526)
 1-label: 643
-KNN
-Accuracy: 0.81 (+/- 0.15)
-DT
-Accuracy: 0.88 (+/- 0.13)
-RF
-Accuracy: 0.92 (+/- 0.06)
-SVM
-Accuracy: 0.85 (+/- 0.11)
-Logit
-Accuracy: 0.88 (+/- 0.13)
+KNN Accuracy: 0.81 (+/- 0.15)
+DT Accuracy: 0.88 (+/- 0.13)
+RF Accuracy: 0.92 (+/- 0.06)
+SVM Accuracy: 0.85 (+/- 0.11)
+Logit Accuracy: 0.88 (+/- 0.13)
 ```
 
 | Algorithm       | False positive          | False negative  | AUC     |
