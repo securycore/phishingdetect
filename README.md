@@ -68,10 +68,9 @@ Logit Accuracy: 0.88 (+/- 0.13)
 | RF              | 0.034783                | 0.038261        |0.982916 |
 | SVM             | 0.034783                | 0.106087        |0.936241 |
 | Logit           | 0.038261                | 0.067826        |0.947001 |
-
-
-
 <img align="left" width="200" height="200" src="https://github.com/ririhedou/phishingdetect/blob/master/data/roc.png">
+
+
 
 ## FAQ
 
