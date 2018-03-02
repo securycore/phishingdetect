@@ -70,7 +70,7 @@ Logit Accuracy: 0.88 (+/- 0.13)
 | Logit           | 0.038261                | 0.067826        |0.947001 |
 
 
-<img width="200" height="200" src="https://github.com/ririhedou/phishingdetect/blob/master/data/roc.png">
+<img width="500" height="500" src="https://github.com/ririhedou/phishingdetect/blob/master/data/roc.png">
 
 
 ## FAQ
