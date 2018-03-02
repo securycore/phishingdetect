@@ -21,17 +21,19 @@ echo "Did you check this?"
 
 read -p "Continue (y/n)?" choice
 case "$choice" in
-  y|Y ) echo "yes";;
-  n|N ) echo "no";;
-  * ) echo "invalid";;
+  y|Y ) echo "yes, bingo! :)";;
+  n|N ) echo "no -ehhh some bad thing might happen";;
+  * ) echo "invalid - wow";;
 esac
 
 
-sleep 5
+sleep 3
 
 sudo apt-get install python-tk
 
 sudo apt-get clean
+
+echo "Clean ......"
 
 sleep 3
 
@@ -45,7 +47,7 @@ sudo pip install -U autocorrect==0.3.0
 sudo pip install -U nltk==3.2.1
 
 
-echo "Let download nltk data"
+echo "Begin to download nltk data"
 sleep 5
 python -m nltk.downloader all
 
