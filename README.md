@@ -84,5 +84,5 @@ export PYTHONPATH="${PYTHONPATH}/usr/local/lib/python2.7/site-packages:/usr/lib/
 
 ## Disclaimer
 
-research prototype
+research prototype, use at your own risk.
 
