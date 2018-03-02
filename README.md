@@ -32,22 +32,22 @@ Malicious sample:
 ```
 python predict_crawl.py --img=test/sewauk.org.png --html=test/sewauk.org
 
-Use existing model
-Img is test/sewauk.org.png
-HTML is test/sewauk.org
-1-malicious 0-benign
-Prediction is that [1.]
+> Use existing model
+> Img is test/sewauk.org.png
+> HTML is test/sewauk.org
+> 1-malicious 0-benign
+> Prediction is that [1.]
 ```
 
 Benign sample:
 ```
 python predict_crawl.py --img=test/100022538-facebook.com.png --html=test/100022538-facebook.source.txt
 
-Use existing model
-Img is test/100022538-facebook.com.png
-HTML is test/100022538-facebook.source.txt
-1-malicious 0-benign
-Prediction is that [0.]
+> Use existing model
+> Img is test/100022538-facebook.com.png
+> HTML is test/100022538-facebook.source.txt
+> 1-malicious 0-benign
+> Prediction is that [0.]
 ```
 
 ## Model Evaluation
