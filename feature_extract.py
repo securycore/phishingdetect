@@ -40,6 +40,9 @@ def get_img_text_ocr(img_path):
     sent = word_tokenize(text.lower())
     words = [word.lower() for word in sent if word.isalpha()]
 
+    #print ("FUCK")
+    #print (words)
+
     #words = list(set(words))
     # remove stop words
     stop_words = set(stopwords.words('english'))
@@ -108,6 +111,9 @@ def get_structure_html_text(html_path):
     words = [w for w in words if w not in stop_words]
     attr_word_str = ' '.join(words)
 
+    #print (text_word_str)
+    #print (num_of_forms)
+    #print (attr_word_str)
     return text_word_str, num_of_forms, attr_word_str
 
 
@@ -137,6 +143,7 @@ def text_embedding_into_vector(txt_str):
     """
     texts = txt_str.split(' ')
     texts = [spell(w).lower() for w in texts]
+    #print (txt_str, texts)
 
     embedding_vector = [0]*(len(WORD_TERM)+1)
     for elem in texts:
@@ -188,6 +195,7 @@ def feature_vector_extraction_from_img_html(img, html):
             return final_v
 
         except:
+
             print ("WTF, error happened! maybe your format is not acceptable?")
             return None
     else:
