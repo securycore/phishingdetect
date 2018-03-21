@@ -7,6 +7,7 @@
 
 #Analysis result
 **/*.out
+Predict.txt
 
 #ignore the IDE file.
 .idea/

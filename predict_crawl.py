@@ -9,7 +9,6 @@ import model
 import numpy as np
 import feature_extract
 
-#/mnt/sdb1/browser_data/facebook_com-247/screenshots
 
 def parse_options():
     parser = argparse.ArgumentParser(description="running analysis...", prefix_chars='-+/')
@@ -29,7 +28,7 @@ def predict_folder():
 
     forest = model.tree_model_based_feature_importance(X,Y)
 
-    facebook_dir = "/mnt/sdb1/browser_data/facebook_com-247"
+    facebook_dir = "/home/ketian/tmp/243"
     #uber_dir = "/mnt/sdb1/browser_data/uber_com-688"
 
     cans = util_ke.read_candidates_from_crawl_data(facebook_dir)
@@ -37,6 +36,7 @@ def predict_folder():
     DEFAULT_FILE = "Predict.txt"
     for c in cans:
         if os.path.exists(c.web_source) and os.path.exists(c.web_img):
+            print (c.idx, c.web_img, c.web_source)
             v = feature_extract.feature_vector_extraction(c)
             if v is None:
                 continue
@@ -76,6 +76,9 @@ def predict(img, html):
 
 if __name__ == "__main__":
     args = parse_options()
+
+    predict_folder()
+    sys.exit(0)
 
     if args.html is None or args.img is None:
         print ("No input, system exit")

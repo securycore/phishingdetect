@@ -18,14 +18,16 @@ class Candidate(object):
         self.mobile_source = mobile_source
 
 
+#the structure for crawling data
 class CrawlCandidate(object):
     """
     Candidates are for the image and html source file in crawling
     """
-    def __init__(self, idx, img, source):
+    def __init__(self, idx, img, source, redirect):
         self.idx = idx
         self.web_img = img
         self.web_source = source
+        self.redirect = redirect
 
 
 class Feature(object):
@@ -64,7 +66,7 @@ def read_pngs_sources_from_directory(dire):
         if not idx in idxs:
             web_img = dire + idx + '.web.screen.png'
             web_source = dire + idx + '.web.source.html'
-            mobile_img =  dire + idx + '.mobile.screen.png'
+            mobile_img = dire + idx + '.mobile.screen.png'
             mobile_source = dire + idx + '.mobile.source.html'
             can = Candidate(idx, web_img, web_source, mobile_img, mobile_source)
             candidates.append(can)
@@ -80,35 +82,28 @@ def read_pngs_sources_from_multiple_directories(dire_list):
     return cans
 
 
+
+"""
+('chinese-facebook.de..screen.png', 'chinese-facebook.de..screen')
+('my-facebook.org..source.txt', 'my-facebook.org..source')
+('fakebook.pro..redirect', 'fakebook.pro.')
+
+"""
 def read_candidates_from_crawl_data(dire):
-    #/mnt/sdb1/browser_data/facebook_com-247/screenshots/1-8463e63ea97f53b289ad0cc172211729-247_0[k][January_17_2018].screen.png
-    #/mnt/sdb1/browser_data/facebook_com-247/sources/1-8463e63ea97f53b289ad0cc172211729-247_0[k][January_17_2018].source.html
     if not dire.endswith('/'):
         dire += '/'
 
-    screen_dir = dire + "screenshots/"
-    sources_dir = dire + "sources/"
+    IDX_list = set()
+    for f in os.listdir(dire):
 
-    def get_label_dic(d):
-        fs = os.listdir(d)
-        dic = dict()
-        for f in fs:
-            idx = f.split('[k]')[0].split('-')[-1]
-            dic[idx] = d + f
-        return dic
-
-    screen_dict = get_label_dic(screen_dir)
-    sources_dict = get_label_dic(sources_dir)
+        idx = f.split('..')[0]
+        IDX_list.add(idx)
 
     crawl_candidate_list = list()
 
-    for i in screen_dict:
-        try:
-            img = screen_dict[i]
-            source = sources_dict[i]
-            crawl_candidate_list.append(CrawlCandidate(i, img, source))
-        except:
-            print (i)
-            print ("same idx does not exist in both screenshot and source directory")
-
+    for i in IDX_list:
+        img = dire + i + '..screen.png'
+        source = dire + i + '..source.txt'
+        redirect = dire + i + '..redirect'
+        crawl_candidate_list.append(CrawlCandidate(i, img, source, redirect))
     return crawl_candidate_list
