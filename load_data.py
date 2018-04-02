@@ -31,5 +31,4 @@ def load_label(filename):
     return labels
 
 
-
-#print load_label(l)
+#print load_label("./label_tool/LABEL.label")

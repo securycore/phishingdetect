@@ -47,12 +47,12 @@ def main():
     X = list()
     y = list()
 
-    for i,c in enumerate(cans):
-
-        print (i, c.idx)
-
+    total = 0
+    for i, c in enumerate(cans):
         if c.idx not in labels:
             continue
+        else:
+            print (i, c.idx)
 
         if os.path.exists(c.web_source) and os.path.exists(c.web_img):
             v = feature_extract.feature_vector_extraction(c)
@@ -67,11 +67,11 @@ def main():
     #print (all_img_text)
     #print (all_html_text)
     #statistics.text_analysis(all_html_text + " " + all_img_text)
-    print (X)
-    print (y)
+    #print (X)
+    #print (y)
     np.savetxt('X.txt', np.asarray(X), fmt='%d')
     np.savetxt('Y.txt', np.asarray(y), fmt='%d')
-    model.train_and_draw_roc(X, y)
+    #model.train_and_draw_roc(X, y)
     return 1
 
 

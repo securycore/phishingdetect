@@ -28,7 +28,8 @@ def predict_folder():
 
     forest = model.tree_model_based_feature_importance(X,Y)
 
-    facebook_dir = "/home/ketian/tmp/243"
+    facebook_dir = "/home/ketian/tmp/509"
+    #"/home/ketian/tmp/243"
     #uber_dir = "/mnt/sdb1/browser_data/uber_com-688"
 
     cans = util_ke.read_candidates_from_crawl_data(facebook_dir)
@@ -76,9 +77,8 @@ def predict(img, html):
 
 if __name__ == "__main__":
     args = parse_options()
-
-    predict_folder()
-    sys.exit(0)
+    #predict_folder()
+    #sys.exit(0)
 
     if args.html is None or args.img is None:
         print ("No input, system exit")

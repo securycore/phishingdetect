@@ -178,8 +178,8 @@ def tree_model_based_feature_importance(x, y, forest=None):
     get_scroe_using_cv(forest, x, y)
     forest.fit(x, y)
 
-    #from sklearn.externals import joblib
-    #joblib.dump(forest, 'saved_models/forest.pkl')
+    from sklearn.externals import joblib
+    joblib.dump(forest, 'saved_models/forest.pkl')
 
     return forest
 
